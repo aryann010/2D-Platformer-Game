@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,6 +7,7 @@ using UnityEngine;
 public class playerController : MonoBehaviour
 {
     public Animator animator;
+    public scoreController scoreController;
     public float speed;
     public float jump;
     private Rigidbody2D rb2d;
@@ -29,6 +31,12 @@ public class playerController : MonoBehaviour
         moveCharacter(horizontal);
 
     }
+
+    public void pickKey()
+    {
+        scoreController.increaseScore(10);
+    }
+
     private void FixedUpdate()
     {
         float vertical = Input.GetAxisRaw("Vertical");
@@ -60,7 +68,7 @@ public class playerController : MonoBehaviour
     }  
     private void characterJump(float vertical)
     {
-        if (vertical > 0)
+        if (vertical > 0 )
          {
             rb2d.AddForce(new Vector2(0f, jump), ForceMode2D.Impulse);
          }
