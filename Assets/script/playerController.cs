@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
+
 public class playerController : MonoBehaviour
 {
     public Animator animator;
@@ -11,7 +12,9 @@ public class playerController : MonoBehaviour
     public float speed;
     public float jump;
     private Rigidbody2D rb2d;
-
+    public float health;
+    public float maxHealth=100f;
+    public healthBarController healthBar;
     private void Awake()
     {
         rb2d = gameObject.GetComponent<Rigidbody2D>();
@@ -73,6 +76,10 @@ public class playerController : MonoBehaviour
             rb2d.AddForce(new Vector2(0f, jump), ForceMode2D.Impulse);
          }
     }
-    
+    public void TakeDamage(float h)
+    {
 
+        health -= h;
+        healthBar.updateHealthBar();
+    }
 }
