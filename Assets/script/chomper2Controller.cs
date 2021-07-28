@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class chomperController : MonoBehaviour
+public class chomper2Controller : MonoBehaviour
 {
     public Animator animator;
     bool moveRight = true;
@@ -29,13 +29,13 @@ public class chomperController : MonoBehaviour
         
 
         
-        if (transform.position.x < 0.5f)
+        if (transform.position.x < 16.42f)
         { 
         moveRight = true;
         transform.localScale = new Vector2(Mathf.Abs(transform.localScale.x), transform.localScale.y);
         }
 
-        if (transform.position.x > 5.55f)
+        if (transform.position.x > 38.51f)
         {
             moveRight = false;
             transform.localScale = new Vector2(-1f * Mathf.Abs(transform.localScale.x), transform.localScale.y);
