@@ -18,6 +18,7 @@ public class playerController : MonoBehaviour
     public float health;
     public float maxHealth=100f;
     public healthBarController healthBar;
+    
 
 
     private void Awake()
@@ -38,20 +39,12 @@ public class playerController : MonoBehaviour
         float vertical = Input.GetAxisRaw("Vertical");
         jumpAnimation(vertical);
         moveCharacter(horizontal);
-        modifyPhysics();
+       
         
 
     }
 
-    private void modifyPhysics()
-    {
-        if (onGround)
-        
-            rb2d.gravityScale = 0;
-        
-        else
-            rb2d.gravityScale = 1;
-    }
+   
     public void pickKey()
     {
         scoreController.increaseScore(10);
@@ -74,23 +67,30 @@ public class playerController : MonoBehaviour
 
     private void playMovementAnimation(float horizontal)
     {
-        animator.SetFloat("speed", Mathf.Abs(horizontal));
-        Vector3 scale = transform.localScale;
-        scale.x = (horizontal < 0 ? -1f : (horizontal > 0 ? 1f : (scale.x / Mathf.Abs(scale.x)))) * Mathf.Abs(scale.x);
-        transform.localScale = scale;
+        
+        {
+            animator.SetFloat("speed", Mathf.Abs(horizontal));
+            Vector3 scale = transform.localScale;
+            scale.x = (horizontal < 0 ? -1f : (horizontal > 0 ? 1f : (scale.x / Mathf.Abs(scale.x)))) * Mathf.Abs(scale.x);
+            transform.localScale = scale;
+        }
+        
     }
 
     private void moveCharacter(float horizontal)
     {
+
+
         Vector3 position = transform.position;
-        position.x += horizontal * speed * Time.deltaTime; //speed*(1/(30/sec)), 30fps 
-        transform.position = position;
+        position.x += horizontal * speed * Time.deltaTime; //speed*(1/(30/sec)), 30fps
+        transform.position = position;        
     }  
     private void characterJump(float vertical)
     {
         if (vertical > 0 && onGround)
          {
-            rb2d.AddForce(new Vector2(0f, jump), ForceMode2D.Force);
+            Vector2 movement = new Vector2(rb2d.velocity.x, jump);
+            rb2d.velocity = movement;
             
          }
     }
