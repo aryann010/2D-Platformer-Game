@@ -4,13 +4,21 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
+
 public class playerController : MonoBehaviour
 {
     public Animator animator;
     public scoreController scoreController;
     public float speed;
     public float jump;
+    public float jumpLength;
+    public LayerMask groundLayer;
+    public bool onGround = false;
     private Rigidbody2D rb2d;
+    public float health;
+    public float maxHealth=100f;
+    public healthBarController healthBar;
+
 
     private void Awake()
     {
@@ -19,6 +27,7 @@ public class playerController : MonoBehaviour
     
     void Update()
     {
+        onGround = Physics2D.Raycast(transform.position, Vector2.down, jumpLength, groundLayer);
         
         float horizontal = Input.GetAxisRaw("Horizontal");
         playMovementAnimation(horizontal);
@@ -29,9 +38,20 @@ public class playerController : MonoBehaviour
         float vertical = Input.GetAxisRaw("Vertical");
         jumpAnimation(vertical);
         moveCharacter(horizontal);
+        modifyPhysics();
+        
 
     }
 
+    private void modifyPhysics()
+    {
+        if (onGround)
+        
+            rb2d.gravityScale = 0;
+        
+        else
+            rb2d.gravityScale = 1;
+    }
     public void pickKey()
     {
         scoreController.increaseScore(10);
@@ -68,11 +88,18 @@ public class playerController : MonoBehaviour
     }  
     private void characterJump(float vertical)
     {
-        if (vertical > 0 )
+        if (vertical > 0 && onGround)
          {
-            rb2d.AddForce(new Vector2(0f, jump), ForceMode2D.Impulse);
+            rb2d.AddForce(new Vector2(0f, jump), ForceMode2D.Force);
+            
          }
     }
-    
+    public void TakeDamage(float h)
+    {
 
+        health -= h;
+        healthBar.updateHealthBar();
+    }
+
+    
 }
