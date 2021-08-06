@@ -1,18 +1,21 @@
 
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 
 public class lobbyController : MonoBehaviour
 {
     public Button playButton;
-    public GameObject levelSelection;
+    public GameObject levelSelector;
     private void Awake()
     {
-        playButton.onClick.AddListener(level1); 
+        playButton.onClick.AddListener(storyline); 
     }
-    private void level1()
+    private void storyline()
     {
-        levelSelection.SetActive(true);
+        soundManager.Instance.play(sounds.buttonClick);
+       
+        levelSelector.SetActive(true);
     }
 }

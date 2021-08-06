@@ -14,7 +14,8 @@ public class toNextLevel : MonoBehaviour
     }
     private void loadNextLevel()
     {
-        int cIndex = levelManager.Instance.markLevelComplete();
-        SceneManager.LoadScene(cIndex+1);
+        int nIndex = levelManager.Instance.markLevelComplete();
+        SceneManager.LoadScene(nIndex+1);
+        
     }
 }

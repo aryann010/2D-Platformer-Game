@@ -23,6 +23,7 @@ public class gameOverController : MonoBehaviour
     }
     public void playerDied()
     {
+        soundManager.Instance.play(sounds.playerDeath);
         gameObject.SetActive(true);
     }
     
@@ -30,12 +31,12 @@ public class gameOverController : MonoBehaviour
 
     private void reloadLevel()
     {
-        int cIndex = levelManager.Instance.markLevelComplete();
-        SceneManager.LoadScene(cIndex);
+        int nIndex = levelManager.Instance.markLevelComplete();
+        SceneManager.LoadScene(nIndex-1);
     }
     private void returnLobby()
     {
-        SceneManager.LoadScene(3);
+        SceneManager.LoadScene(0);
         
     }
     
