@@ -20,6 +20,7 @@ public class levelCompleted : MonoBehaviour
 
 
             // SceneManager.LoadScene(0);
+            soundManager.Instance.play(sounds.teleporter);
             levelManager.Instance.markLevelComplete();
             gameOverController.gameObject.SetActive(true);
             toNextLevel.gameObject.SetActive(true);

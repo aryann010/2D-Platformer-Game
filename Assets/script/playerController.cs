@@ -18,6 +18,7 @@ public class playerController : MonoBehaviour
     public float health;
     public float maxHealth=100f;
     public healthBarController healthBar;
+    public float sc;
     
 
 
@@ -39,6 +40,8 @@ public class playerController : MonoBehaviour
         float vertical = Input.GetAxisRaw("Vertical");
         jumpAnimation(vertical);
         moveCharacter(horizontal);
+
+      
        
         
 
@@ -47,6 +50,7 @@ public class playerController : MonoBehaviour
    
     public void pickKey()
     {
+        soundManager.Instance.play(sounds.pickKey);
         scoreController.increaseScore(10);
     }
 
@@ -64,11 +68,12 @@ public class playerController : MonoBehaviour
     {
       animator.SetBool("crouch", crouch); 
     }
-
+   
     private void playMovementAnimation(float horizontal)
     {
         
         {
+            
             animator.SetFloat("speed", Mathf.Abs(horizontal));
             Vector3 scale = transform.localScale;
             scale.x = (horizontal < 0 ? -1f : (horizontal > 0 ? 1f : (scale.x / Mathf.Abs(scale.x)))) * Mathf.Abs(scale.x);
