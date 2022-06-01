@@ -6,6 +6,7 @@ public class healthBarController : MonoBehaviour
 {
     public Image healthBarImage;
     public playerController player;
+    public gameOverController GameOverController;
     public void updateHealthBar()
     {
         healthBarImage.fillAmount = Mathf.Clamp(player.health / player.maxHealth, 0, 1f);
@@ -15,7 +16,8 @@ public class healthBarController : MonoBehaviour
     {
         if(healthBarImage.fillAmount==0)
         {
-            SceneManager.LoadScene(0);
+            GameOverController.playerDied();
+            player.enabled = false;
         }
     }
 }
